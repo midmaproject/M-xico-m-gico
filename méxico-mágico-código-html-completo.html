@@ -1,0 +1,1597 @@
+<pre><code class="language-html">&#x3C;!DOCTYPE html>
+&#x3C;html lang="es">
+&#x3C;head>
+    &#x3C;meta charset="UTF-8">
+    &#x3C;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &#x3C;title>México Mágico ✈️ - Tu próxima aventura comienza aquí&#x3C;/title>
+    &#x3C;script src="https://cdn.tailwindcss.com">&#x3C;/script>
+    &#x3C;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&#x26;family=Nunito:wght@400;600;700;800&#x26;display=swap" rel="stylesheet">
+    &#x3C;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    &#x3C;script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                        'nunito': ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        'turquoise': '#00D4FF',
+                        'mexican-pink': '#FF3A7D',
+                        'pastel-yellow': '#FFE066',
+                        'deep-turquoise': '#00B4CC',
+                        'light-pink': '#FFB3D1',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'fly-in': 'fly-in 2s ease-out',
+                        'slide-up': 'slide-up 0.8s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        'fly-in': {
+                            '0%': { transform: 'translateX(-100vw) rotate(-15deg)', opacity: '0' },
+                            '100%': { transform: 'translateX(0) rotate(0deg)', opacity: '1' },
+                        },
+                        'slide-up': {
+                            '0%': { transform: 'translateY(50px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                    }
+                }
+            }
+        }
+    &#x3C;/script>
+    &#x3C;style>
+        .airplane-cursor {
+            cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuNSAxOS4xNUwyMS4xNSAwLjVMMTIgOS42NUwyLjUgMTkuMTVaIiBmaWxsPSIjMDBENEZGIi8+CjxwYXRoIGQ9Ik0xMiA5LjY1TDIxLjE1IDAuNUwxMiA5LjY1WiIgZmlsbD0iI0ZGM0E3RCIvPgo8L3N2Zz4K'), auto;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #00D4FF, #FF3A7D, #FFE066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .floating-icons {
+            animation: float 4s ease-in-out infinite;
+        }
+        .floating-icons:nth-child(even) {
+            animation-delay: -2s;
+        }
+    &#x3C;/style>
+&#x3C;/head>
+&#x3C;body class="font-poppins bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50 airplane-cursor">
+    &#x3C;!-- Pantalla de inicio con avión animado -->
+    &#x3C;div id="intro-screen" class="fixed inset-0 bg-gradient-to-br from-turquoise via-mexican-pink to-pastel-yellow z-50 flex items-center justify-center">
+        &#x3C;div class="text-center text-white">
+            &#x3C;div class="airplane-container mb-8" onclick="startJourney()">
+                &#x3C;i class="fas fa-plane text-8xl animate-float hover:animate-wiggle cursor-pointer transition-all duration-300 hover:scale-110" style="color: white; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">&#x3C;/i>
+            &#x3C;/div>
+            &#x3C;h1 class="font-nunito text-4xl md:text-6xl font-bold mb-4 animate-pulse-slow" data-translate="welcome-title">
+                México Mágico
+            &#x3C;/h1>
+            &#x3C;p class="text-xl mb-8 opacity-90" data-translate="click-instruction">Haz clic en el avión para comenzar tu aventura&#x3C;/p>
+            &#x3C;div class="animate-bounce">
+                &#x3C;i class="fas fa-chevron-down text-2xl">&#x3C;/i>
+            &#x3C;/div>
+        &#x3C;/div>
+        &#x3C;!-- Botón de idioma en la esquina superior derecha -->
+        &#x3C;div class="absolute top-6 right-6">
+            &#x3C;button id="language-toggle" class="bg-white bg-opacity-20 backdrop-blur-sm text-white px-4 py-2 rounded-full font-semibold hover:bg-opacity-30 transition-all duration-300 flex items-center">
+                &#x3C;i class="fas fa-globe mr-2">&#x3C;/i>
+                &#x3C;span id="language-text">English&#x3C;/span>
+            &#x3C;/button>
+        &#x3C;/div>
+    &#x3C;/div>
+
+    &#x3C;!-- Contenido principal -->
+    &#x3C;div id="main-content" class="hidden">
+        &#x3C;!-- Header -->
+        &#x3C;header class="relative bg-gradient-to-r from-turquoise to-deep-turquoise text-white py-20 overflow-hidden">
+            &#x3C;div class="absolute inset-0 bg-black opacity-20">&#x3C;/div>
+            &#x3C;div class="absolute inset-0 bg-center bg-cover" style="background-image: url('keys/mexico-travel-header?prompt=Beautiful%20Mexican%20landscape%20with%20vibrant%20colors%20travel%20destination%20mountains%20and%20coastline');">&#x3C;/div>
+            
+            &#x3C;!-- Íconos flotantes -->
+            &#x3C;div class="absolute top-10 left-10 floating-icons">
+                &#x3C;i class="fas fa-palm-tree text-3xl text-pastel-yellow opacity-70">&#x3C;/i>
+            &#x3C;/div>
+            &#x3C;div class="absolute top-20 right-20 floating-icons">
+                &#x3C;i class="fas fa-sun text-2xl text-yellow-300 opacity-70">&#x3C;/i>
+            &#x3C;/div>
+            &#x3C;div class="absolute bottom-10 left-1/4 floating-icons">
+                &#x3C;i class="fas fa-cocktail text-2xl text-light-pink opacity-70">&#x3C;/i>
+            &#x3C;/div>
+            
+            &#x3C;div class="relative z-10 container mx-auto px-6 text-center">
+                &#x3C;h1 class="font-nunito text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg animate-fly-in" data-translate="main-title">
+                    México Mágico
+                &#x3C;/h1>
+                &#x3C;p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up" data-translate="main-subtitle">
+                    &#x3C;i class="fas fa-sparkles mr-3 text-pastel-yellow">&#x3C;/i>
+                    Creamos experiencias únicas que transforman viajes en recuerdos inolvidables
+                &#x3C;/p>
+                &#x3C;p class="text-lg opacity-90 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 0.2s;" data-translate="main-description">
+                    Agencia de viajes especializada en diseñar experiencias personalizadas para conectarte con destinos que dejan huella.
+                &#x3C;/p>
+            &#x3C;/div>
+        &#x3C;/header>
+
+        &#x3C;!-- Quiénes Somos -->
+        &#x3C;section class="py-16 bg-white hover-section">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-4xl mx-auto">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold text-gray-800 mb-8 text-center hover:scale-105 transition-transform duration-300" data-translate="who-we-are">
+                        &#x3C;i class="fas fa-heart mr-3 text-mexican-pink animate-pulse-slow">&#x3C;/i>
+                        ¿Quiénes somos?
+                    &#x3C;/h2>
+                    &#x3C;div class="grid md:grid-cols-2 gap-12 items-center">
+                        &#x3C;div class="space-y-6">
+                            &#x3C;div class="bg-gradient-to-r from-turquoise to-deep-turquoise p-6 rounded-xl text-white transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
+                                &#x3C;p class="text-lg leading-relaxed">
+                                    México Mágico es una agencia de viajes ubicada en &#x3C;strong class="text-pastel-yellow">Mérida, Yucatán&#x3C;/strong>, especializada en crear experiencias únicas y memorables. Conectamos a nuestros clientes con destinos extraordinarios tanto nacionales como internacionales.
+                                &#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="bg-gradient-to-r from-mexican-pink to-light-pink p-6 rounded-xl text-white transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
+                                &#x3C;p class="text-lg leading-relaxed">
+                                    Somos una agencia &#x3C;span class="font-bold">dinámica, fresca y cercana&#x3C;/span>, que nace con un objetivo claro: &#x3C;strong>hacer la magia en tus viajes&#x3C;/strong>.
+                                &#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="bg-gradient-to-r from-pastel-yellow to-yellow-300 p-6 rounded-xl text-gray-800 transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
+                                &#x3C;p class="text-lg leading-relaxed">
+                                    Conectamos personas con lugares que dejan huella, con un servicio cálido, seguro y confiable tanto para turistas nacionales como extranjeros.
+                                &#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                        &#x3C;div class="text-center">
+                            &#x3C;img src="keys/merida-yucatan?prompt=Beautiful%20colonial%20architecture%20of%20Merida%20Yucatan%20Mexico%20with%20colorful%20buildings%20and%20vibrant%20atmosphere" alt="Mérida, Yucatán" class="w-full h-80 object-cover rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Nuestros Servicios -->
+        &#x3C;section class="py-16 bg-gradient-to-br from-turquoise to-deep-turquoise text-white">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold mb-12 text-center hover:scale-105 transition-transform duration-300" data-translate="our-services">
+                        &#x3C;i class="fas fa-plane-departure mr-3 text-pastel-yellow animate-bounce-slow">&#x3C;/i>
+                        Nuestros servicios
+                    &#x3C;/h2>
+                    &#x3C;p class="text-xl text-center mb-12 max-w-3xl mx-auto">
+                        Te ofrecemos una experiencia completa y flexible.
+                    &#x3C;/p>
+                    &#x3C;div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105 hover:rotate-2">
+                            &#x3C;i class="fas fa-globe text-4xl mb-4 text-pastel-yellow animate-pulse-slow">&#x3C;/i>
+                            &#x3C;h3 class="font-semibold text-xl mb-3">Viajes Nacionales e Internacionales&#x3C;/h3>
+                            &#x3C;p>Descubre el mundo con nosotros&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105 hover:-rotate-2">
+                            &#x3C;i class="fas fa-ship text-4xl mb-4 text-pastel-yellow animate-float">&#x3C;/i>
+                            &#x3C;h3 class="font-semibold text-xl mb-3">Cruceros por el Caribe y Europa&#x3C;/h3>
+                            &#x3C;p>Navega hacia nuevas aventuras&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105 hover:rotate-1">
+                            &#x3C;i class="fas fa-headset text-4xl mb-4 text-pastel-yellow animate-wiggle">&#x3C;/i>
+                            &#x3C;h3 class="font-semibold text-xl mb-3">Asistencia Personalizada&#x3C;/h3>
+                            &#x3C;p>Durante todo el proceso&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105 hover:-rotate-1">
+                            &#x3C;i class="fas fa-car text-4xl mb-4 text-pastel-yellow animate-pulse-slow">&#x3C;/i>
+                            &#x3C;h3 class="font-semibold text-xl mb-3">Renta de Vehículos&#x3C;/h3>
+                            &#x3C;p>Coches, camionetas y yates&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105 hover:rotate-2">
+                            &#x3C;i class="fas fa-bus text-4xl mb-4 text-pastel-yellow animate-float">&#x3C;/i>
+                            &#x3C;h3 class="font-semibold text-xl mb-3">Transporte Terrestre&#x3C;/h3>
+                            &#x3C;p>En destino&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105 hover:-rotate-2">
+                            &#x3C;i class="fas fa-gift text-4xl mb-4 text-pastel-yellow animate-bounce-slow">&#x3C;/i>
+                            &#x3C;h3 class="font-semibold text-xl mb-3">Paquetes Exclusivos&#x3C;/h3>
+                            &#x3C;p>Precios preferenciales&#x3C;/p>
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Sección 1: Esta es tu señal para volver a viajar -->
+        &#x3C;section class="py-16 bg-white">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;div class="grid md:grid-cols-2 gap-12 items-center">
+                        &#x3C;div class="order-2 md:order-1">
+                            &#x3C;h2 class="font-nunito text-4xl font-bold text-gray-800 mb-6 hover:scale-105 transition-transform duration-300" data-translate="travel-signal">
+                                &#x3C;i class="fas fa-plane-departure mr-3 text-turquoise animate-float">&#x3C;/i>
+                                Esta es tu señal para volver a viajar
+                            &#x3C;/h2>
+                            &#x3C;p class="text-xl text-gray-600 mb-8 leading-relaxed" data-translate="nostalgia-text">
+                                ¿Sientes nostalgia por las aventuras? ¿Extrañas esa emoción de explorar lugares nuevos? 
+                                Es momento de reconectar con el mundo y contigo mismo.
+                            &#x3C;/p>
+                            &#x3C;div class="space-y-4">
+                                &#x3C;div class="flex items-center p-4 bg-gradient-to-r from-turquoise to-deep-turquoise text-white rounded-lg transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-check-circle text-2xl mr-4 animate-pulse-slow">&#x3C;/i>
+                                    &#x3C;span class="text-lg">Planes perfectos para todas las edades&#x3C;/span>
+                                &#x3C;/div>
+                                &#x3C;div class="flex items-center p-4 bg-gradient-to-r from-mexican-pink to-light-pink text-white rounded-lg transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-heart text-2xl mr-4 animate-wiggle">&#x3C;/i>
+                                    &#x3C;span class="text-lg">Experiencias diseñadas para reconectar&#x3C;/span>
+                                &#x3C;/div>
+                                &#x3C;div class="flex items-center p-4 bg-gradient-to-r from-pastel-yellow to-yellow-300 text-gray-800 rounded-lg transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-shield-alt text-2xl mr-4 animate-bounce-slow">&#x3C;/i>
+                                    &#x3C;span class="text-lg">Viajes seguros y confiables&#x3C;/span>
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;button class="mt-8 bg-turquoise text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-deep-turquoise transform hover:scale-105 transition-all duration-300 shadow-lg" data-translate="schedule-experience">
+                                &#x3C;i class="fas fa-calendar-alt mr-2">&#x3C;/i>
+                                Agenda tu experiencia
+                            &#x3C;/button>
+                        &#x3C;/div>
+                        &#x3C;div class="order-1 md:order-2">
+                            &#x3C;img src="eASEv_dKvC9iIQekdhoDs" alt="Vista desde ventana de avión" class="w-full h-96 object-cover rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Sección 2: Reconectar o explorar nuevos mundos -->
+        &#x3C;section class="py-16 bg-gradient-to-br from-turquoise to-deep-turquoise text-white">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;div class="grid md:grid-cols-2 gap-12 items-center">
+                        &#x3C;div>
+                            &#x3C;img src="wKA9VC_B5CH6tW8cxacJz" alt="Globos aerostáticos en Capadocia" class="w-full h-96 object-cover rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                        &#x3C;/div>
+                        &#x3C;div>
+                            &#x3C;h2 class="font-nunito text-4xl font-bold mb-6 hover:scale-105 transition-transform duration-300" data-translate="reconnect-explore">
+                                &#x3C;i class="fas fa-globe text-pastel-yellow mr-3 animate-float">&#x3C;/i>
+                                Reconectar o explorar nuevos mundos
+                            &#x3C;/h2>
+                            &#x3C;p class="text-xl mb-8 leading-relaxed opacity-95" data-translate="reconnect-text">
+                                Ya sea que quieras revivir destinos que amas o descubrir lugares que solo has soñado, 
+                                cada viaje es una oportunidad de crear nuevas historias.
+                            &#x3C;/p>
+                            &#x3C;div class="grid grid-cols-2 gap-4 mb-8">
+                                &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg text-center transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-map-marked-alt text-3xl mb-2 text-pastel-yellow animate-pulse-slow">&#x3C;/i>
+                                    &#x3C;p class="font-semibold">Destinos Únicos&#x3C;/p>
+                                &#x3C;/div>
+                                &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg text-center transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-users text-3xl mb-2 text-pastel-yellow animate-wiggle">&#x3C;/i>
+                                    &#x3C;p class="font-semibold">Grupos Pequeños&#x3C;/p>
+                                &#x3C;/div>
+                                &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg text-center transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-star text-3xl mb-2 text-pastel-yellow animate-bounce-slow">&#x3C;/i>
+                                    &#x3C;p class="font-semibold">Experiencias VIP&#x3C;/p>
+                                &#x3C;/div>
+                                &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg text-center transform hover:scale-105 transition-all duration-300">
+                                    &#x3C;i class="fas fa-camera text-3xl mb-2 text-pastel-yellow animate-float">&#x3C;/i>
+                                    &#x3C;p class="font-semibold">Momentos Únicos&#x3C;/p>
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;button class="bg-mexican-pink text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all duration-300 shadow-lg" data-translate="explore-destinations">
+                                &#x3C;i class="fas fa-compass mr-2">&#x3C;/i>
+                                Explorar destinos
+                            &#x3C;/button>
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Sección 3: Lugares hechos de recuerdos -->
+        &#x3C;section class="py-16 bg-white">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;div class="grid md:grid-cols-2 gap-12 items-center">
+                        &#x3C;div class="order-2 md:order-1">
+                            &#x3C;h2 class="font-nunito text-4xl font-bold text-gray-800 mb-6 hover:scale-105 transition-transform duration-300" data-translate="places-memories">
+                                &#x3C;i class="fas fa-camera-retro mr-3 text-mexican-pink animate-wiggle">&#x3C;/i>
+                                Hay lugares que están hechos de recuerdos
+                            &#x3C;/h2>
+                            &#x3C;p class="text-xl text-gray-600 mb-6 leading-relaxed" data-translate="places-text">
+                                ...y otros que aún esperan ser parte de los tuyos.
+                            &#x3C;/p>
+                            &#x3C;p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                                Cada destino tiene su propia magia, su propia historia por contar. 
+                                Permítenos ayudarte a escribir tu próximo capítulo de aventuras.
+                            &#x3C;/p>
+                            &#x3C;div class="space-y-4 mb-8">
+                                &#x3C;div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                    &#x3C;i class="fas fa-bookmark text-turquoise text-xl mr-4">&#x3C;/i>
+                                    &#x3C;span>Itinerarios personalizados&#x3C;/span>
+                                &#x3C;/div>
+                                &#x3C;div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                    &#x3C;i class="fas fa-handshake text-mexican-pink text-xl mr-4">&#x3C;/i>
+                                    &#x3C;span>Atención personalizada 24/7&#x3C;/span>
+                                &#x3C;/div>
+                                &#x3C;div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                    &#x3C;i class="fas fa-gift text-pastel-yellow text-xl mr-4">&#x3C;/i>
+                                    &#x3C;span>Experiencias exclusivas incluidas&#x3C;/span>
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;button class="bg-gradient-to-r from-mexican-pink to-light-pink text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300" data-translate="create-memories">
+                                &#x3C;i class="fas fa-photo-video mr-2">&#x3C;/i>
+                                Crear mis recuerdos
+                            &#x3C;/button>
+                        &#x3C;/div>
+                        &#x3C;div class="order-1 md:order-2">
+                            &#x3C;img src="fq5sftR5NNPExcO-QrQPk" alt="Cámara Polaroid con fotos de viajes" class="w-full h-96 object-cover rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Buscador y Servicios Principales -->
+        &#x3C;section class="py-16 bg-gray-50">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold text-gray-800 mb-8 text-center hover:scale-105 transition-transform duration-300" data-translate="find-destination">
+                        &#x3C;i class="fas fa-search mr-3 text-turquoise animate-pulse-slow">&#x3C;/i>
+                        Encuentra tu próximo destino
+                    &#x3C;/h2>
+                    &#x3C;p class="text-xl text-center text-gray-600 mb-12">
+                        Busca y personaliza tu experiencia de viaje ideal
+                    &#x3C;/p>
+
+                    &#x3C;!-- Buscador Principal -->
+                    &#x3C;div class="bg-white rounded-2xl shadow-2xl p-8 mb-12">
+                        &#x3C;div class="grid md:grid-cols-4 gap-6 mb-6">
+                            &#x3C;!-- Destino -->
+                            &#x3C;div class="relative">
+                                &#x3C;label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    &#x3C;i class="fas fa-map-marker-alt text-turquoise mr-2">&#x3C;/i>¿A dónde quieres ir?
+                                &#x3C;/label>
+                                &#x3C;select class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-turquoise transition-colors duration-300 bg-white">
+                                    &#x3C;option>Selecciona un destino&#x3C;/option>
+                                    &#x3C;optgroup label="🇲🇽 México - Experiencias Únicas">
+                                        &#x3C;option>🍹 Tequila, Jalisco - Experiencia de Cultivo&#x3C;/option>
+                                        &#x3C;option>🏖️ Riviera Maya - Playa y Cultura Maya&#x3C;/option>
+                                        &#x3C;option>🏛️ Ciudad de México - Historia y Gastronomía&#x3C;/option>
+                                        &#x3C;option>🌴 Chiapas - Experiencia de la Selva&#x3C;/option>
+                                        &#x3C;option>🎭 Yucatán - Cultura Maya Auténtica&#x3C;/option>
+                                        &#x3C;option>🎵 Eventos y Conciertos Especiales&#x3C;/option>
+                                        &#x3C;option>🏖️ Caribe Mexicano - Cancún y Cozumel&#x3C;/option>
+                                    &#x3C;/optgroup>
+                                    &#x3C;optgroup label="🌍 Destinos Internacionales">
+                                        &#x3C;option>🇬🇷 Grecia - Islas Griegas&#x3C;/option>
+                                        &#x3C;option>🇹🇷 Turquía - Estambul y Capadocia&#x3C;/option>
+                                        &#x3C;option>🇹🇭 Tailandia - Bangkok y Phuket&#x3C;/option>
+                                        &#x3C;option>🇺🇸 Estados Unidos&#x3C;/option>
+                                        &#x3C;option>🇪🇸 España&#x3C;/option>
+                                        &#x3C;option>🇮🇹 Italia&#x3C;/option>
+                                        &#x3C;option>🇫🇷 Francia&#x3C;/option>
+                                        &#x3C;option>🇯🇵 Japón&#x3C;/option>
+                                    &#x3C;/optgroup>
+                                &#x3C;/select>
+                            &#x3C;/div>
+
+                            &#x3C;!-- Tipo de Viaje -->
+                            &#x3C;div class="relative">
+                                &#x3C;label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    &#x3C;i class="fas fa-suitcase text-mexican-pink mr-2">&#x3C;/i>Tipo de experiencia
+                                &#x3C;/label>
+                                &#x3C;select class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-mexican-pink transition-colors duration-300 bg-white">
+                                    &#x3C;option>Tipo de viaje&#x3C;/option>
+                                    &#x3C;optgroup label="🇲🇽 Experiencias Mexicanas">
+                                        &#x3C;option>🍹 Ruta del Tequila - Degustaciones&#x3C;/option>
+                                        &#x3C;option>🌴 Aventura en la Selva - Chiapas&#x3C;/option>
+                                        &#x3C;option>🎵 Eventos y Conciertos Exclusivos&#x3C;/option>
+                                        &#x3C;option>🏛️ Tours Culturales Maya&#x3C;/option>
+                                        &#x3C;option>🦋 Santuario de Mariposas Monarca&#x3C;/option>
+                                        &#x3C;option>🐋 Avistamiento de Ballenas&#x3C;/option>
+                                    &#x3C;/optgroup>
+                                    &#x3C;optgroup label="🌍 Experiencias Generales">
+                                        &#x3C;option>🏖️ Playa y relajación&#x3C;/option>
+                                        &#x3C;option>🏛️ Cultural e histórico&#x3C;/option>
+                                        &#x3C;option>🎒 Aventura y naturaleza&#x3C;/option>
+                                        &#x3C;option>🚢 Crucero&#x3C;/option>
+                                        &#x3C;option>👨‍👩‍👧‍👦 Familiar&#x3C;/option>
+                                        &#x3C;option>💑 Romántico&#x3C;/option>
+                                        &#x3C;option>🧳 Negocios&#x3C;/option>
+                                    &#x3C;/optgroup>
+                                &#x3C;/select>
+                            &#x3C;/div>
+
+                            &#x3C;!-- Duración -->
+                            &#x3C;div class="relative">
+                                &#x3C;label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    &#x3C;i class="fas fa-calendar text-pastel-yellow mr-2">&#x3C;/i>Duración
+                                &#x3C;/label>
+                                &#x3C;select class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-pastel-yellow transition-colors duration-300 bg-white">
+                                    &#x3C;option>Días de viaje&#x3C;/option>
+                                    &#x3C;option>3-5 días&#x3C;/option>
+                                    &#x3C;option>6-8 días&#x3C;/option>
+                                    &#x3C;option>9-12 días&#x3C;/option>
+                                    &#x3C;option>13-15 días&#x3C;/option>
+                                    &#x3C;option>Más de 15 días&#x3C;/option>
+                                &#x3C;/select>
+                            &#x3C;/div>
+
+                            &#x3C;!-- Presupuesto -->
+                            &#x3C;div class="relative">
+                                &#x3C;label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    &#x3C;i class="fas fa-dollar-sign text-turquoise mr-2">&#x3C;/i>Presupuesto por persona
+                                &#x3C;/label>
+                                &#x3C;select class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-turquoise transition-colors duration-300 bg-white">
+                                    &#x3C;option>Rango de precio&#x3C;/option>
+                                    &#x3C;option>$10,000 - $25,000 MXN&#x3C;/option>
+                                    &#x3C;option>$25,000 - $50,000 MXN&#x3C;/option>
+                                    &#x3C;option>$50,000 - $100,000 MXN&#x3C;/option>
+                                    &#x3C;option>$100,000 - $200,000 MXN&#x3C;/option>
+                                    &#x3C;option>Más de $200,000 MXN&#x3C;/option>
+                                &#x3C;/select>
+                            &#x3C;/div>
+                        &#x3C;/div>
+
+                        &#x3C;div class="text-center">
+                            &#x3C;button id="search-button" class="bg-gradient-to-r from-turquoise to-deep-turquoise text-white px-12 py-4 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300" data-translate="search-experiences">
+                                &#x3C;i class="fas fa-search mr-3">&#x3C;/i>Buscar experiencias
+                            &#x3C;/button>
+                            &#x3C;p class="text-sm text-gray-600 mt-3" data-translate="whatsapp-search-info">
+                                &#x3C;i class="fab fa-whatsapp text-green-500 mr-2">&#x3C;/i>
+                                Tu búsqueda se enviará directamente por WhatsApp a nuestros expertos
+                            &#x3C;/p>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;!-- Servicios Rápidos -->
+                    &#x3C;div class="grid md:grid-cols-3 gap-8">
+                        &#x3C;!-- Hoteles -->
+                        &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            &#x3C;div class="bg-gradient-to-r from-turquoise to-deep-turquoise p-6 text-white">
+                                &#x3C;i class="fas fa-bed text-4xl mb-4 animate-float">&#x3C;/i>
+                                &#x3C;h3 class="font-nunito text-2xl font-bold" data-translate="hotels">Hoteles&#x3C;/h3>
+                                &#x3C;p class="opacity-90">Desde económicos hasta de lujo&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="p-6">
+                                &#x3C;div class="space-y-4">
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-star text-pastel-yellow mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">3 estrellas&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-turquoise font-bold ml-4" data-translate="available">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-star text-pastel-yellow mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">4 estrellas&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-turquoise font-bold ml-4">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-star text-pastel-yellow mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">5 estrellas&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-turquoise font-bold ml-4">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;button id="hotel-quote-btn" class="w-full mt-6 bg-turquoise text-white py-3 rounded-full font-semibold hover:bg-deep-turquoise transition-colors duration-300" data-translate="quote-whatsapp">
+                                    &#x3C;i class="fab fa-whatsapp mr-2">&#x3C;/i>Cotizar por WhatsApp
+                                &#x3C;/button>
+                            &#x3C;/div>
+                        &#x3C;/div>
+
+                        &#x3C;!-- Vuelos -->
+                        &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            &#x3C;div class="bg-gradient-to-r from-mexican-pink to-light-pink p-6 text-white">
+                                &#x3C;i class="fas fa-plane text-4xl mb-4 animate-pulse-slow">&#x3C;/i>
+                                &#x3C;h3 class="font-nunito text-2xl font-bold" data-translate="flights">Vuelos&#x3C;/h3>
+                                &#x3C;p class="opacity-90">Mejores tarifas garantizadas&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="p-6">
+                                &#x3C;div class="space-y-4">
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-plane-departure text-mexican-pink mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">Nacional&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-mexican-pink font-bold ml-4" data-translate="available">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-globe text-mexican-pink mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">Internacional&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-mexican-pink font-bold ml-4">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-crown text-mexican-pink mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">Business&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-mexican-pink font-bold ml-4">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;button id="flight-quote-btn" class="w-full mt-6 bg-mexican-pink text-white py-3 rounded-full font-semibold hover:opacity-90 transition-opacity duration-300" data-translate="quote-whatsapp">
+                                    &#x3C;i class="fab fa-whatsapp mr-2">&#x3C;/i>Cotizar por WhatsApp
+                                &#x3C;/button>
+                            &#x3C;/div>
+                        &#x3C;/div>
+
+                        &#x3C;!-- Experiencias -->
+                        &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            &#x3C;div class="bg-gradient-to-r from-pastel-yellow to-yellow-300 p-6 text-gray-800">
+                                &#x3C;i class="fas fa-camera text-4xl mb-4 animate-wiggle">&#x3C;/i>
+                                &#x3C;h3 class="font-nunito text-2xl font-bold" data-translate="experiences">Experiencias&#x3C;/h3>
+                                &#x3C;p class="opacity-80">Tours y actividades únicas&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="p-6">
+                                &#x3C;div class="space-y-4">
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-walking text-yellow-600 mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">Tours a pie&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-yellow-600 font-bold ml-4" data-translate="available">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-car text-yellow-600 mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">Tours privados&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-yellow-600 font-bold ml-4">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center justify-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                                        &#x3C;div class="flex items-center">
+                                            &#x3C;i class="fas fa-helicopter text-yellow-600 mr-3">&#x3C;/i>
+                                            &#x3C;span class="font-medium">Experiencias VIP&#x3C;/span>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-yellow-600 font-bold ml-4">✓ Disponible&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;button id="experience-quote-btn" class="w-full mt-6 bg-yellow-500 text-gray-800 py-3 rounded-full font-semibold hover:bg-yellow-400 transition-colors duration-300" data-translate="quote-whatsapp">
+                                    &#x3C;i class="fab fa-whatsapp mr-2">&#x3C;/i>Cotizar por WhatsApp
+                                &#x3C;/button>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;!-- Destinos Populares -->
+                    &#x3C;div class="mt-16">
+                        &#x3C;h3 class="font-nunito text-3xl font-bold text-gray-800 mb-8 text-center">
+                            &#x3C;i class="fas fa-fire mr-3 text-mexican-pink">&#x3C;/i>
+                            Destinos más buscados
+                        &#x3C;/h3>
+                        &#x3C;div class="grid md:grid-cols-5 gap-6">
+                            &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                                &#x3C;img src="keys/cancun-riviera-maya?prompt=Beautiful%20Cancun%20beach%20with%20turquoise%20waters%20and%20white%20sand%20Riviera%20Maya" alt="Cancún" class="w-full h-32 object-cover">
+                                &#x3C;div class="p-4">
+                                    &#x3C;h4 class="font-semibold text-gray-800 mb-1">Cancún&#x3C;/h4>
+                                    &#x3C;p class="text-sm text-gray-600">Desde $8,500&#x3C;/p>
+                                    &#x3C;div class="flex items-center mt-2">
+                                        &#x3C;div class="flex text-yellow-400">
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-xs text-gray-500 ml-2">4.8&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                            &#x3C;/div>
+
+                            &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                                &#x3C;img src="keys/europe-destinations?prompt=Beautiful%20European%20city%20with%20historic%20architecture%20and%20cobblestone%20streets" alt="Europa" class="w-full h-32 object-cover">
+                                &#x3C;div class="p-4">
+                                    &#x3C;h4 class="font-semibold text-gray-800 mb-1">Europa&#x3C;/h4>
+                                    &#x3C;p class="text-sm text-gray-600">Desde $45,000&#x3C;/p>
+                                    &#x3C;div class="flex items-center mt-2">
+                                        &#x3C;div class="flex text-yellow-400">
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-xs text-gray-500 ml-2">4.9&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                            &#x3C;/div>
+
+                            &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                                &#x3C;img src="keys/asia-destinations?prompt=Beautiful%20Asian%20temple%20with%20traditional%20architecture%20and%20gardens" alt="Asia" class="w-full h-32 object-cover">
+                                &#x3C;div class="p-4">
+                                    &#x3C;h4 class="font-semibold text-gray-800 mb-1">Asia&#x3C;/h4>
+                                    &#x3C;p class="text-sm text-gray-600">Desde $65,000&#x3C;/p>
+                                    &#x3C;div class="flex items-center mt-2">
+                                        &#x3C;div class="flex text-yellow-400">
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-xs text-gray-500 ml-2">4.7&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                            &#x3C;/div>
+
+                            &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                                &#x3C;img src="keys/usa-destinations?prompt=Beautiful%20USA%20landmark%20with%20city%20skyline%20and%20modern%20architecture" alt="Estados Unidos" class="w-full h-32 object-cover">
+                                &#x3C;div class="p-4">
+                                    &#x3C;h4 class="font-semibold text-gray-800 mb-1">Estados Unidos&#x3C;/h4>
+                                    &#x3C;p class="text-sm text-gray-600">Desde $25,000&#x3C;/p>
+                                    &#x3C;div class="flex items-center mt-2">
+                                        &#x3C;div class="flex text-yellow-400">
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-xs text-gray-500 ml-2">4.6&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                            &#x3C;/div>
+
+                            &#x3C;div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                                &#x3C;img src="keys/caribbean-cruise?prompt=Beautiful%20Caribbean%20cruise%20ship%20in%20crystal%20clear%20waters" alt="Cruceros" class="w-full h-32 object-cover">
+                                &#x3C;div class="p-4">
+                                    &#x3C;h4 class="font-semibold text-gray-800 mb-1">Cruceros&#x3C;/h4>
+                                    &#x3C;p class="text-sm text-gray-600">Desde $12,000&#x3C;/p>
+                                    &#x3C;div class="flex items-center mt-2">
+                                        &#x3C;div class="flex text-yellow-400">
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                            &#x3C;i class="fas fa-star text-xs">&#x3C;/i>
+                                        &#x3C;/div>
+                                        &#x3C;span class="text-xs text-gray-500 ml-2">4.8&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;!-- Call to Action -->
+                    &#x3C;div class="mt-12 text-center">
+                        &#x3C;div class="bg-gradient-to-r from-turquoise to-deep-turquoise text-white rounded-2xl p-8">
+                            &#x3C;h3 class="font-nunito text-2xl font-bold mb-4">
+                                &#x3C;i class="fas fa-concierge-bell mr-3 text-pastel-yellow">&#x3C;/i>
+                                ¿No encuentras lo que buscas?
+                            &#x3C;/h3>
+                            &#x3C;p class="text-xl mb-6 opacity-95">
+                                Nuestros expertos están listos para crear un viaje completamente personalizado para ti
+                            &#x3C;/p>
+                            &#x3C;button class="bg-mexican-pink text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                                &#x3C;i class="fas fa-user-tie mr-2">&#x3C;/i>Hablar con un experto
+                            &#x3C;/button>
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Gestor de Experiencias -->
+        &#x3C;section class="py-16 bg-gradient-to-br from-pastel-yellow to-yellow-300">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-4xl mx-auto text-center">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold text-gray-800 mb-8 hover:scale-105 transition-transform duration-300" data-translate="experience-manager">
+                        &#x3C;i class="fas fa-user-crown mr-3 text-mexican-pink animate-pulse-slow">&#x3C;/i>
+                        Agenda con tu Gestor de Experiencias
+                    &#x3C;/h2>
+                    &#x3C;p class="text-xl text-gray-700 mb-12 leading-relaxed" data-translate="experience-text">
+                        Cada viaje es único, como tú. Nuestros gestores especializados diseñarán 
+                        una experiencia completamente personalizada según tus gustos, presupuesto y sueños.
+                    &#x3C;/p>
+                    
+                    &#x3C;div class="grid md:grid-cols-3 gap-8 mb-12">
+                        &#x3C;div class="bg-white rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                            &#x3C;i class="fas fa-calendar-check text-4xl text-turquoise mb-4 animate-bounce-slow">&#x3C;/i>
+                            &#x3C;h3 class="font-nunito text-xl font-bold mb-3 text-gray-800">Consulta Gratuita&#x3C;/h3>
+                            &#x3C;p class="text-gray-600">30 minutos para conocer tus sueños de viaje&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                            &#x3C;i class="fas fa-magic text-4xl text-mexican-pink mb-4 animate-wiggle">&#x3C;/i>
+                            &#x3C;h3 class="font-nunito text-xl font-bold mb-3 text-gray-800">Diseño Personalizado&#x3C;/h3>
+                            &#x3C;p class="text-gray-600">Itinerario creado específicamente para ti&#x3C;/p>
+                        &#x3C;/div>
+                        &#x3C;div class="bg-white rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                            &#x3C;i class="fas fa-headset text-4xl text-turquoise mb-4 animate-float">&#x3C;/i>
+                            &#x3C;h3 class="font-nunito text-xl font-bold mb-3 text-gray-800">Acompañamiento Total&#x3C;/h3>
+                            &#x3C;p class="text-gray-600">Soporte antes, durante y después del viaje&#x3C;/p>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+                        &#x3C;h3 class="font-nunito text-2xl font-bold mb-6 text-gray-800">
+                            &#x3C;i class="fas fa-clock mr-2 text-mexican-pink">&#x3C;/i>
+                            Agenda tu consulta gratuita
+                        &#x3C;/h3>
+                        &#x3C;div class="grid md:grid-cols-2 gap-6">
+                            &#x3C;button class="bg-turquoise text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-deep-turquoise transform hover:scale-105 transition-all duration-300 shadow-lg">
+                                &#x3C;i class="fas fa-phone mr-2">&#x3C;/i>
+                                &#x3C;span data-translate="call-now">Llamar ahora&#x3C;/span>: (999) 361-5974
+                            &#x3C;/button>
+                            &#x3C;button class="bg-mexican-pink text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                                &#x3C;i class="fab fa-whatsapp mr-2">&#x3C;/i>
+                                &#x3C;span data-translate="whatsapp">WhatsApp&#x3C;/span>: +52 999 325-4071
+                            &#x3C;/button>
+                        &#x3C;/div>
+                        &#x3C;p class="text-gray-600 mt-4" data-translate="schedule">
+                            &#x3C;i class="fas fa-info-circle mr-2">&#x3C;/i>
+                            Horarios de atención: Lunes a Viernes 9:00 AM - 6:00 PM
+                        &#x3C;/p>
+                    &#x3C;/div>
+
+                    &#x3C;div class="bg-gradient-to-r from-turquoise to-deep-turquoise text-white rounded-xl p-6">
+                        &#x3C;h4 class="font-nunito text-xl font-bold mb-3">¿Por qué elegir un Gestor de Experiencias?&#x3C;/h4>
+                        &#x3C;div class="grid md:grid-cols-2 gap-4 text-left">
+                            &#x3C;div class="flex items-center">
+                                &#x3C;i class="fas fa-check text-pastel-yellow mr-3">&#x3C;/i>
+                                &#x3C;span>Acceso a tarifas preferenciales exclusivas&#x3C;/span>
+                            &#x3C;/div>
+                            &#x3C;div class="flex items-center">
+                                &#x3C;i class="fas fa-check text-pastel-yellow mr-3">&#x3C;/i>
+                                &#x3C;span>Experiencias que no encontrarás online&#x3C;/span>
+                            &#x3C;/div>
+                            &#x3C;div class="flex items-center">
+                                &#x3C;i class="fas fa-check text-pastel-yellow mr-3">&#x3C;/i>
+                                &#x3C;span>Itinerarios optimizados por expertos locales&#x3C;/span>
+                            &#x3C;/div>
+                            &#x3C;div class="flex items-center">
+                                &#x3C;i class="fas fa-check text-pastel-yellow mr-3">&#x3C;/i>
+                                &#x3C;span>Soporte inmediato durante tu viaje&#x3C;/span>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Paquetes Promocionales Actuales -->
+        &#x3C;section class="py-16 bg-gradient-to-br from-pastel-yellow to-yellow-300">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold text-gray-800 mb-8 text-center hover:scale-105 transition-transform duration-300" data-translate="special-offers">
+                        &#x3C;i class="fas fa-fire mr-3 text-mexican-pink animate-bounce-slow">&#x3C;/i>
+                        ¡Promociones Especiales Activas!
+                    &#x3C;/h2>
+                    &#x3C;p class="text-xl text-center text-gray-700 mb-12">
+                        Aprovecha estas ofertas exclusivas con fechas de salida confirmadas
+                    &#x3C;/p>
+                    
+                    &#x3C;!-- Promociones Destacadas -->
+                    &#x3C;div class="grid md:grid-cols-2 gap-8 mb-12">
+                        &#x3C;!-- Islas Griegas &#x26; Turquía -->
+                        &#x3C;div class="bg-white rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+                            &#x3C;div class="relative">
+                                &#x3C;img src="dtRimxPlh9syPsAE2syyS" alt="Islas Griegas &#x26; Turquía" class="w-full h-80 object-cover">
+                                &#x3C;div class="absolute top-4 left-4 bg-mexican-pink text-white px-4 py-2 rounded-full font-bold animate-pulse-slow">
+                                    &#x3C;i class="fas fa-star mr-2">&#x3C;/i>¡OFERTA ESPECIAL!
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="p-8">
+                                &#x3C;h3 class="font-nunito text-2xl font-bold text-gray-800 mb-4">
+                                    &#x3C;i class="fas fa-globe-europe mr-2 text-turquoise">&#x3C;/i>
+                                    Islas Griegas &#x26; Turquía
+                                &#x3C;/h3>
+                                &#x3C;div class="space-y-3 mb-6">
+                                    &#x3C;div class="flex items-start text-gray-700">
+                                        &#x3C;i class="fas fa-map-marked-alt text-mexican-pink mr-3 mt-1">&#x3C;/i>
+                                        &#x3C;div>
+                                            &#x3C;p>&#x3C;strong>Ciudades incluidas:&#x3C;/strong>&#x3C;/p>
+                                            &#x3C;p class="text-sm">Estambul, Kuzguncuk, Ankara, Patmos, Creta (Heraklion), Santorini, Atenas, Mykonos, Bursa&#x3C;/p>
+                                        &#x3C;/div>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center text-gray-700">
+                                        &#x3C;i class="fas fa-calendar-check text-turquoise mr-3">&#x3C;/i>
+                                        &#x3C;span>&#x3C;strong>Salida:&#x3C;/strong> 1 de Agosto 2025&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center text-gray-700">
+                                        &#x3C;i class="fas fa-plane text-mexican-pink mr-3">&#x3C;/i>
+                                        &#x3C;span>&#x3C;strong>Aerolínea:&#x3C;/strong> Turkish Airlines&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center text-gray-700">
+                                        &#x3C;i class="fas fa-info-circle text-turquoise mr-3">&#x3C;/i>
+                                        &#x3C;span class="text-sm">&#x3C;strong>Promoción válida para viajes en fechas específicas - Aplican T&#x26;C&#x3C;/strong>&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;div class="bg-gradient-to-r from-mexican-pink to-light-pink text-white p-4 rounded-lg mb-6">
+                                    &#x3C;div class="text-center">
+                                        &#x3C;p class="text-sm opacity-90 mb-1">Desde&#x3C;/p>
+                                        &#x3C;p class="text-3xl font-bold">$132,000 &#x3C;span class="text-sm">MXN&#x3C;/span>&#x3C;/p>
+                                        &#x3C;p class="text-sm opacity-90">*Precio por persona&#x3C;/p>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;button class="w-full bg-turquoise text-white py-3 rounded-full font-semibold hover:bg-deep-turquoise transform hover:scale-105 transition-all duration-300" data-translate="more-info">
+                                    &#x3C;i class="fas fa-info-circle mr-2">&#x3C;/i>Más información
+                                &#x3C;/button>
+                            &#x3C;/div>
+                        &#x3C;/div>
+
+                        &#x3C;!-- Tailandia 2x1 -->
+                        &#x3C;div class="bg-white rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+                            &#x3C;div class="relative">
+                                &#x3C;img src="bJatHhuwH2TGhPlHYDkJX" alt="Tailandia" class="w-full h-80 object-cover">
+                                &#x3C;div class="absolute top-4 left-4 bg-red-600 text-white px-4 py-2 rounded-full font-bold animate-bounce-slow">
+                                    &#x3C;i class="fas fa-gift mr-2">&#x3C;/i>2X1
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="p-8">
+                                &#x3C;h3 class="font-nunito text-2xl font-bold text-gray-800 mb-4">
+                                    &#x3C;i class="fas fa-pagoda mr-2 text-turquoise">&#x3C;/i>
+                                    ¡Tailandia te espera!
+                                &#x3C;/h3>
+                                &#x3C;div class="space-y-3 mb-6">
+                                    &#x3C;div class="flex items-center text-gray-700">
+                                        &#x3C;i class="fas fa-clock text-mexican-pink mr-3">&#x3C;/i>
+                                        &#x3C;span>&#x3C;strong>Duración:&#x3C;/strong> 13 Días, 10 Noches&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-start text-gray-700">
+                                        &#x3C;i class="fas fa-map-marked-alt text-turquoise mr-3 mt-1">&#x3C;/i>
+                                        &#x3C;div>
+                                            &#x3C;p>&#x3C;strong>Destinos incluidos:&#x3C;/strong>&#x3C;/p>
+                                            &#x3C;p class="text-sm">Bangkok, Chiang Rai, Chiang Mai &#x26; Phuket&#x3C;/p>
+                                        &#x3C;/div>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center text-gray-700">
+                                        &#x3C;i class="fas fa-calendar-check text-mexican-pink mr-3">&#x3C;/i>
+                                        &#x3C;span>&#x3C;strong>Salida:&#x3C;/strong> 19 de Julio 2025&#x3C;/span>
+                                    &#x3C;/div>
+                                    &#x3C;div class="flex items-center text-gray-700">
+                                        &#x3C;i class="fas fa-info-circle text-turquoise mr-3">&#x3C;/i>
+                                        &#x3C;span class="text-sm">&#x3C;strong>Registro obligatorio en Logística Digital para Tailandia. Promoción válida para viajes en fechas específicas - Aplican T&#x26;C&#x3C;/strong>&#x3C;/span>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-lg mb-6">
+                                    &#x3C;div class="text-center">
+                                        &#x3C;p class="text-sm opacity-90 mb-1">Desde&#x3C;/p>
+                                        &#x3C;p class="text-3xl font-bold">$146,000 &#x3C;span class="text-sm">MXN&#x3C;/span>&#x3C;/p>
+                                        &#x3C;p class="text-sm opacity-90">*Precio por persona&#x3C;/p>
+                                    &#x3C;/div>
+                                &#x3C;/div>
+                                &#x3C;button class="w-full bg-mexican-pink text-white py-3 rounded-full font-semibold hover:opacity-90 transform hover:scale-105 transition-all duration-300" data-translate="more-info">
+                                    &#x3C;i class="fas fa-info-circle mr-2">&#x3C;/i>Más información
+                                &#x3C;/button>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;!-- Experiencias Mexicanas Especiales -->
+                    &#x3C;div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+                        &#x3C;h3 class="font-nunito text-2xl font-bold text-gray-800 mb-6 text-center">
+                            &#x3C;i class="fas fa-flag-mexico mr-2 text-mexican-pink">&#x3C;/i>
+                            Experiencias Únicas en México
+                        &#x3C;/h3>
+                        &#x3C;div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            &#x3C;div class="text-center p-6 bg-gradient-to-br from-pastel-yellow to-yellow-300 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-wine-bottle text-4xl text-gray-800 mb-4">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold text-gray-800 mb-2">Ruta del Tequila&#x3C;/h4>
+                                &#x3C;p class="text-sm text-gray-700">Experiencia completa del cultivo de agave hasta la destilería en Jalisco&#x3C;/p>
+                                &#x3C;div class="mt-3 text-xs bg-white bg-opacity-50 rounded-full px-3 py-1">
+                                    Popular entre turistas internacionales
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-6 bg-gradient-to-br from-turquoise to-deep-turquoise text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-leaf text-4xl mb-4">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Selva de Chiapas&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Aventura en la selva, cascadas, fauna exótica y comunidades indígenas&#x3C;/p>
+                                &#x3C;div class="mt-3 text-xs bg-white bg-opacity-20 rounded-full px-3 py-1">
+                                    Experiencia de naturaleza única
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-6 bg-gradient-to-br from-mexican-pink to-light-pink text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-music text-4xl mb-4">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Eventos y Conciertos&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Acceso a eventos exclusivos, conciertos y festivales en toda la República&#x3C;/p>
+                                &#x3C;div class="mt-3 text-xs bg-white bg-opacity-20 rounded-full px-3 py-1">
+                                    Experiencias VIP disponibles
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-6 bg-gradient-to-br from-green-400 to-green-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-pyramid text-4xl mb-4">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Riviera Maya Cultural&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Playa + cultura maya, cenotes, ruinas arqueológicas y gastronomía local&#x3C;/p>
+                                &#x3C;div class="mt-3 text-xs bg-white bg-opacity-20 rounded-full px-3 py-1">
+                                    Perfecto para familias
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-6 bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-city text-4xl mb-4">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Ciudad de México&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Historia, gastronomía, museos, arte y vida nocturna en la capital&#x3C;/p>
+                                &#x3C;div class="mt-3 text-xs bg-white bg-opacity-20 rounded-full px-3 py-1">
+                                    Centro cultural de América
+                                &#x3C;/div>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-6 bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-butterfly text-4xl mb-4">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Mariposas Monarca&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Santuario de mariposas monarca en Michoacán (temporada noviembre-marzo)&#x3C;/p>
+                                &#x3C;div class="mt-3 text-xs bg-white bg-opacity-20 rounded-full px-3 py-1">
+                                    Fenómeno natural único
+                                &#x3C;/div>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                        &#x3C;div class="text-center">
+                            &#x3C;button class="bg-gradient-to-r from-mexican-pink to-light-pink text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                                &#x3C;i class="fas fa-map-marked-alt mr-2">&#x3C;/i>
+                                Ver todas las experiencias mexicanas
+                            &#x3C;/button>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;!-- Otros Destinos Internacionales -->
+                    &#x3C;div class="bg-white rounded-2xl p-8 shadow-lg">
+                        &#x3C;h3 class="font-nunito text-2xl font-bold text-gray-800 mb-6 text-center">
+                            &#x3C;i class="fas fa-globe mr-2 text-turquoise">&#x3C;/i>
+                            Destinos Internacionales
+                        &#x3C;/h3>
+                        &#x3C;div class="grid md:grid-cols-4 gap-6">
+                            &#x3C;div class="text-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-mountain text-3xl text-mexican-pink mb-3">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold text-gray-800 mb-2">Europa&#x3C;/h4>
+                                &#x3C;p class="text-sm text-gray-600">España, Italia, Francia, Grecia&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-globe-americas text-3xl text-turquoise mb-3">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold text-gray-800 mb-2">América&#x3C;/h4>
+                                &#x3C;p class="text-sm text-gray-600">Estados Unidos, Canadá&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-torii-gate text-3xl text-mexican-pink mb-3">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold text-gray-800 mb-2">Asia&#x3C;/h4>
+                                &#x3C;p class="text-sm text-gray-600">Japón, China, Tailandia, Singapur&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="text-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
+                                &#x3C;i class="fas fa-umbrella-beach text-3xl text-turquoise mb-3">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold text-gray-800 mb-2">Caribe&#x3C;/h4>
+                                &#x3C;p class="text-sm text-gray-600">Cuba, República Dominicana&#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Cruceros Accesibles -->
+        &#x3C;section class="py-16 bg-gradient-to-r from-turquoise to-deep-turquoise text-white">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-6xl mx-auto">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold mb-8 text-center hover:scale-105 transition-transform duration-300" data-translate="cruises">
+                        &#x3C;i class="fas fa-ship mr-3 text-pastel-yellow animate-float">&#x3C;/i>
+                        Cruceros: Experiencias Increíbles al Alcance de Todos
+                    &#x3C;/h2>
+                    &#x3C;p class="text-xl text-center mb-12 max-w-4xl mx-auto opacity-95">
+                        Navega por los mares más hermosos del mundo con los mejores proveedores. 
+                        Desde opciones accesibles hasta experiencias de lujo, ¡tenemos el crucero perfecto para ti!
+                    &#x3C;/p>
+
+                    &#x3C;div class="grid md:grid-cols-3 gap-8 mb-12">
+                        &#x3C;!-- Caribe -->
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                            &#x3C;i class="fas fa-palm-tree text-4xl text-pastel-yellow mb-4 animate-pulse-slow">&#x3C;/i>
+                            &#x3C;h3 class="font-nunito text-2xl font-bold mb-4">Cruceros por el Caribe&#x3C;/h3>
+                            &#x3C;ul class="space-y-2 mb-6 text-blue-100">
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Cozumel, Jamaica, Bahamas&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>7-14 días de navegación&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Todo incluido a bordo&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Actividades para toda la familia&#x3C;/li>
+                            &#x3C;/ul>
+                            &#x3C;div class="bg-mexican-pink bg-opacity-80 p-3 rounded-lg text-center">
+                                &#x3C;p class="font-bold">✓ Disponible&#x3C;/p>
+                                &#x3C;p class="text-sm opacity-90">Cotiza con nosotros&#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+
+                        &#x3C;!-- Europa -->
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                            &#x3C;i class="fas fa-gopuram text-4xl text-pastel-yellow mb-4 animate-wiggle">&#x3C;/i>
+                            &#x3C;h3 class="font-nunito text-2xl font-bold mb-4">Cruceros por Europa&#x3C;/h3>
+                            &#x3C;ul class="space-y-2 mb-6 text-blue-100">
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Mediterráneo, Fiordos Noruegos&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Ciudades históricas increíbles&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Excursiones culturales incluidas&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Gastronomía internacional&#x3C;/li>
+                            &#x3C;/ul>
+                            &#x3C;div class="bg-mexican-pink bg-opacity-80 p-3 rounded-lg text-center">
+                                &#x3C;p class="font-bold">✓ Disponible&#x3C;/p>
+                                &#x3C;p class="text-sm opacity-90">Cotiza con nosotros&#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+
+                        &#x3C;!-- México -->
+                        &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                            &#x3C;i class="fas fa-flag-mexico text-4xl text-pastel-yellow mb-4 animate-bounce-slow">&#x3C;/i>
+                            &#x3C;h3 class="font-nunito text-2xl font-bold mb-4">Cruceros por México&#x3C;/h3>
+                            &#x3C;ul class="space-y-2 mb-6 text-blue-100">
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Costa Mexicana y Pacífico&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Puerto Vallarta, Mazatlán, Cabo&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Precios especiales para nacionales&#x3C;/li>
+                                &#x3C;li>&#x3C;i class="fas fa-check mr-2 text-pastel-yellow">&#x3C;/i>Sin complicaciones de visa&#x3C;/li>
+                            &#x3C;/ul>
+                            &#x3C;div class="bg-mexican-pink bg-opacity-80 p-3 rounded-lg text-center">
+                                &#x3C;p class="font-bold">✓ Disponible&#x3C;/p>
+                                &#x3C;p class="text-sm opacity-90">Cotiza con nosotros&#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+
+                    &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 text-center">
+                        &#x3C;h3 class="font-nunito text-2xl font-bold mb-6">
+                            &#x3C;i class="fas fa-star-half-alt mr-2 text-pastel-yellow">&#x3C;/i>
+                            ¿Por qué elegir nuestros cruceros?
+                        &#x3C;/h3>
+                        &#x3C;div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-handshake text-3xl text-pastel-yellow mb-3 animate-pulse-slow">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Mejores Proveedores&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Royal Caribbean, Norwegian, MSC y más&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-dollar-sign text-3xl text-pastel-yellow mb-3 animate-wiggle">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Precios Accesibles&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Opciones para todos los presupuestos&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-users text-3xl text-pastel-yellow mb-3 animate-float">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Grupos Familiares&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Experiencias para todas las edades&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-compass text-3xl text-pastel-yellow mb-3 animate-bounce-slow">&#x3C;/i>
+                                &#x3C;h4 class="font-semibold mb-2">Sin Complicaciones&#x3C;/h4>
+                                &#x3C;p class="text-sm opacity-90">Nosotros nos encargamos de todo&#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                        &#x3C;button id="cruise-quote-btn" class="mt-8 bg-pastel-yellow text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-200 transform hover:scale-105 transition-all duration-300 shadow-lg" data-translate="quote-cruises">
+                            &#x3C;i class="fab fa-whatsapp mr-2">&#x3C;/i>
+                            Cotizar cruceros por WhatsApp
+                        &#x3C;/button>
+                    &#x3C;/div>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Comunidad y Recompensas -->
+        &#x3C;section class="py-16 bg-gradient-to-r from-mexican-pink to-light-pink text-white">
+            &#x3C;div class="container mx-auto px-6">
+                &#x3C;div class="max-w-4xl mx-auto text-center">
+                    &#x3C;h2 class="font-nunito text-4xl font-bold mb-8 hover:scale-105 transition-transform duration-300" data-translate="community">
+                        &#x3C;i class="fas fa-stars mr-3 text-pastel-yellow animate-pulse-slow">&#x3C;/i>
+                        Lo que viene: Comunidad y recompensas
+                    &#x3C;/h2>
+                    &#x3C;p class="text-xl mb-8 leading-relaxed">
+                        Queremos que formes parte de la comunidad de México Mágico.
+                    &#x3C;/p>
+                    &#x3C;div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 mb-8 hover:bg-opacity-20 transition-all duration-300">
+                        &#x3C;p class="text-lg mb-6">
+                            Próximamente lanzaremos un sistema de recompensas, donde podrás obtener puntos por:
+                        &#x3C;/p>
+                        &#x3C;div class="grid md:grid-cols-3 gap-6 text-center">
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-users text-3xl mb-2 text-pastel-yellow animate-float">&#x3C;/i>
+                                &#x3C;p>Recomendar la agencia&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-suitcase-rolling text-3xl mb-2 text-pastel-yellow animate-wiggle">&#x3C;/i>
+                                &#x3C;p>Viajar con nosotros&#x3C;/p>
+                            &#x3C;/div>
+                            &#x3C;div class="transform hover:scale-110 transition-transform duration-300">
+                                &#x3C;i class="fas fa-party-horn text-3xl mb-2 text-pastel-yellow animate-bounce-slow">&#x3C;/i>
+                                &#x3C;p>Participar en dinámicas&#x3C;/p>
+                            &#x3C;/div>
+                        &#x3C;/div>
+                    &#x3C;/div>
+                    &#x3C;p class="text-lg mb-8">
+                        Los puntos se podrán canjear por descuentos, accesos preferenciales y más.
+                    &#x3C;/p>
+                    &#x3C;p class="text-2xl font-nunito font-bold">
+                        Porque aquí, no eres solo un cliente, eres parte de la magia.
+                    &#x3C;/p>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/section>
+
+        &#x3C;!-- Footer / Lema -->
+        &#x3C;footer class="bg-gradient-to-r from-turquoise to-deep-turquoise text-white py-16">
+            &#x3C;div class="container mx-auto px-6 text-center">
+                &#x3C;h2 class="font-nunito text-5xl font-bold mb-8 hover:scale-105 transition-transform duration-300" data-translate="our-motto">
+                    &#x3C;i class="fas fa-magic mr-3 text-pastel-yellow animate-wiggle">&#x3C;/i>
+                    Nuestro lema: Hacemos la magia en tus viajes
+                &#x3C;/h2>
+                &#x3C;div class="max-w-2xl mx-auto">
+                    &#x3C;p class="text-2xl mb-6 leading-relaxed">
+                        Y recuerda:
+                    &#x3C;/p>
+                    &#x3C;div class="text-3xl font-nunito font-bold mb-8 leading-relaxed" data-translate="magic-everywhere">
+                        La "M" está en todas partes&#x3C;br>
+                        En el mar, en la magia, en los momentos…&#x3C;br>
+                        &#x3C;span class="text-pastel-yellow gradient-text">La "M" está contigo.&#x3C;/span>
+                        &#x3C;i class="fas fa-globe ml-2 animate-float">&#x3C;/i>
+                        &#x3C;i class="fas fa-plane ml-2 animate-pulse-slow">&#x3C;/i>
+                    &#x3C;/div>
+                &#x3C;/div>
+                &#x3C;div class="mt-12 pt-8 border-t border-white border-opacity-30">
+                    &#x3C;p class="text-lg opacity-90" data-translate="location">
+                        &#x3C;i class="fas fa-map-marker-alt mr-2 text-pastel-yellow">&#x3C;/i>
+                        México Mágico - Agencia de Viajes&#x3C;br>
+                        Mérida, Yucatán, México
+                    &#x3C;/p>
+                &#x3C;/div>
+            &#x3C;/div>
+        &#x3C;/footer>
+    &#x3C;/div>
+
+    &#x3C;script type="module">
+        function startJourney() {
+            const introScreen = document.getElementById('intro-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            // Animar el avión volando fuera de la pantalla con mejor trayectoria
+            const airplane = document.querySelector('.airplane-container i');
+            airplane.style.transform = 'translateX(120vw) translateY(-50vh) rotate(15deg) scale(3)';
+            airplane.style.transition = 'transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            airplane.style.filter = 'drop-shadow(0 8px 16px rgba(0,0,0,0.3))';
+            
+            // Efecto de desvanecimiento del fondo
+            setTimeout(() => {
+                introScreen.style.opacity = '0';
+                introScreen.style.transition = 'opacity 0.8s ease-out';
+            }, 1200);
+            
+            // Después de la animación, ocultar intro y mostrar contenido
+            setTimeout(() => {
+                introScreen.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                mainContent.style.opacity = '0';
+                mainContent.style.transform = 'translateY(20px)';
+                
+                // Animar entrada del contenido principal
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                    mainContent.style.transform = 'translateY(0)';
+                    mainContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                    
+                    // Inicializar animaciones del contenido principal
+                    initializeAnimations();
+                }, 100);
+            }, 2000);
+        }
+
+        function initializeAnimations() {
+            // Animación de aparición gradual de secciones
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observar todas las secciones
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(section);
+            });
+
+            // Efectos hover adicionales
+            const serviceCards = document.querySelectorAll('.hover\\:bg-opacity-20');
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.boxShadow = '0 20px 40px rgba(0, 212, 255, 0.3)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '';
+                });
+            });
+
+            // Cursor personalizado con efectos de partículas
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // Crear partículas ocasionales
+                if (Math.random() &#x3C; 0.1) {
+                    createParticle(mouseX, mouseY);
+                }
+            });
+        }
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.backgroundColor = '#00D4FF';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            particle.style.transition = 'all 1s ease-out';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.style.opacity = '0';
+                particle.style.transform = 'scale(0) translateY(-50px)';
+            }, 50);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
+        // Sistema de traducción completo
+        let currentLanguage = 'es'; // Idioma por defecto: español
+        
+        // Diccionario de traducciones
+        const translations = {
+            es: {
+                // Pantalla de inicio
+                'welcome-title': 'México Mágico',
+                'welcome-subtitle': 'Haz clic en el avión para comenzar tu aventura',
+                'click-instruction': 'Haz clic en el avión para comenzar tu aventura',
+                'language-btn': 'English',
+                
+                // Header principal
+                'main-title': 'México Mágico',
+                'main-subtitle': 'Creamos experiencias únicas que transforman viajes en recuerdos inolvidables',
+                'main-description': 'Agencia de viajes especializada en diseñar experiencias personalizadas para conectarte con destinos que dejan huella.',
+                
+                // Secciones principales
+                'who-we-are': '¿Quiénes somos?',
+                'our-services': 'Nuestros servicios',
+                'travel-signal': 'Esta es tu señal para volver a viajar',
+                'reconnect-explore': 'Reconectar o explorar nuevos mundos',
+                'places-memories': 'Hay lugares que están hechos de recuerdos',
+                'find-destination': 'Encuentra tu próximo destino',
+                'experience-manager': 'Agenda con tu Gestor de Experiencias',
+                'special-offers': '¡Promociones Especiales Activas!',
+                'cruises': 'Cruceros: Experiencias Increíbles al Alcance de Todos',
+                'community': 'Lo que viene: Comunidad y recompensas',
+                'our-motto': 'Nuestro lema: Hacemos la magia en tus viajes',
+                
+                // Servicios
+                'hotels': 'Hoteles',
+                'flights': 'Vuelos',
+                'experiences': 'Experiencias',
+                'cruises-short': 'Cruceros',
+                'quote-whatsapp': 'Cotizar por WhatsApp',
+                'available': '✓ Disponible',
+                'quote-with-us': 'Cotiza con nosotros',
+                
+                // Botones y acciones
+                'search-experiences': 'Buscar experiencias',
+                'whatsapp-search-info': 'Tu búsqueda se enviará directamente por WhatsApp a nuestros expertos',
+                'more-info': 'Más información',
+                'schedule-experience': 'Agenda tu experiencia',
+                'explore-destinations': 'Explorar destinos',
+                'create-memories': 'Crear mis recuerdos',
+                'speak-expert': 'Hablar con un experto',
+                'call-now': 'Llamar ahora',
+                'whatsapp': 'WhatsApp',
+                'quote-cruises': 'Cotizar cruceros por WhatsApp',
+                
+                // Horarios
+                'schedule': 'Horarios de atención: Lunes a Viernes 9:00 AM - 6:00 PM',
+                
+                // Textos descriptivos
+                'nostalgia-text': '¿Sientes nostalgia por las aventuras? ¿Extrañas esa emoción de explorar lugares nuevos? Es momento de reconectar con el mundo y contigo mismo.',
+                'reconnect-text': 'Ya sea que quieras revivir destinos que amas o descubrir lugares que solo has soñado, cada viaje es una oportunidad de crear nuevas historias.',
+                'places-text': '...y otros que aún esperan ser parte de los tuyos.',
+                'experience-text': 'Cada viaje es único, como tú. Nuestros gestores especializados diseñarán una experiencia completamente personalizada según tus gustos, presupuesto y sueños.',
+                
+                // Lema final
+                'magic-everywhere': 'La "M" está en todas partes&#x3C;br>En el mar, en la magia, en los momentos…&#x3C;br>&#x3C;span class="text-pastel-yellow gradient-text">La "M" está contigo.&#x3C;/span>',
+                'location': 'México Mágico - Agencia de Viajes&#x3C;br>Mérida, Yucatán, México'
+            },
+            
+            en: {
+                // Pantalla de inicio
+                'welcome-title': 'Magical Mexico',
+                'welcome-subtitle': 'Click the airplane to start your adventure',
+                'click-instruction': 'Click the airplane to start your adventure',
+                'language-btn': 'Français',
+                
+                // Header principal
+                'main-title': 'Magical Mexico',
+                'main-subtitle': 'We create unique experiences that transform trips into unforgettable memories',
+                'main-description': 'Travel agency specialized in designing personalized experiences to connect you with destinations that leave a mark.',
+                
+                // Secciones principales
+                'who-we-are': 'Who are we?',
+                'our-services': 'Our services',
+                'travel-signal': 'This is your sign to travel again',
+                'reconnect-explore': 'Reconnect or explore new worlds',
+                'places-memories': 'There are places made of memories',
+                'find-destination': 'Find your next destination',
+                'experience-manager': 'Schedule with your Experience Manager',
+                'special-offers': 'Active Special Offers!',
+                'cruises': 'Cruises: Incredible Experiences Within Everyone\'s Reach',
+                'community': 'What\'s coming: Community and rewards',
+                'our-motto': 'Our motto: We make magic in your travels',
+                
+                // Servicios
+                'hotels': 'Hotels',
+                'flights': 'Flights',
+                'experiences': 'Experiences',
+                'cruises-short': 'Cruises',
+                'quote-whatsapp': 'Quote via WhatsApp',
+                'available': '✓ Available',
+                'quote-with-us': 'Quote with us',
+                
+                // Botones y acciones
+                'search-experiences': 'Search experiences',
+                'whatsapp-search-info': 'Your search will be sent directly via WhatsApp to our experts',
+                'more-info': 'More information',
+                'schedule-experience': 'Schedule your experience',
+                'explore-destinations': 'Explore destinations',
+                'create-memories': 'Create my memories',
+                'speak-expert': 'Speak with an expert',
+                'call-now': 'Call now',
+                'whatsapp': 'WhatsApp',
+                'quote-cruises': 'Quote cruises via WhatsApp',
+                
+                // Horarios
+                'schedule': 'Business hours: Monday to Friday 9:00 AM - 6:00 PM',
+                
+                // Textos descriptivos
+                'nostalgia-text': 'Do you feel nostalgic for adventures? Do you miss that excitement of exploring new places? It\'s time to reconnect with the world and yourself.',
+                'reconnect-text': 'Whether you want to relive destinations you love or discover places you\'ve only dreamed of, every trip is an opportunity to create new stories.',
+                'places-text': '...and others that are still waiting to be part of yours.',
+                'experience-text': 'Every trip is unique, just like you. Our specialized managers will design a completely personalized experience according to your tastes, budget and dreams.',
+                
+                // Lema final
+                'magic-everywhere': 'The "M" is everywhere&#x3C;br>In the sea, in magic, in moments…&#x3C;br>&#x3C;span class="text-pastel-yellow gradient-text">The "M" is with you.&#x3C;/span>',
+                'location': 'Magical Mexico - Travel Agency&#x3C;br>Mérida, Yucatán, Mexico'
+            },
+            
+            fr: {
+                // Pantalla de inicio
+                'welcome-title': 'Mexique Magique',
+                'welcome-subtitle': 'Cliquez sur l\'avion pour commencer votre aventure',
+                'click-instruction': 'Cliquez sur l\'avion pour commencer votre aventure',
+                'language-btn': 'Español',
+                
+                // Header principal
+                'main-title': 'Mexique Magique',
+                'main-subtitle': 'Nous créons des expériences uniques qui transforment les voyages en souvenirs inoubliables',
+                'main-description': 'Agence de voyage spécialisée dans la conception d\'expériences personnalisées pour vous connecter avec des destinations qui marquent.',
+                
+                // Secciones principales
+                'who-we-are': 'Qui sommes-nous ?',
+                'our-services': 'Nos services',
+                'travel-signal': 'C\'est votre signal pour voyager à nouveau',
+                'reconnect-explore': 'Se reconnecter ou explorer de nouveaux mondes',
+                'places-memories': 'Il y a des endroits faits de souvenirs',
+                'find-destination': 'Trouvez votre prochaine destination',
+                'experience-manager': 'Planifiez avec votre Gestionnaire d\'Expérience',
+                'special-offers': 'Offres spéciales actives !',
+                'cruises': 'Croisières : Expériences Incroyables à la Portée de Tous',
+                'community': 'Ce qui arrive : Communauté et récompenses',
+                'our-motto': 'Notre devise : Nous faisons la magie dans vos voyages',
+                
+                // Servicios
+                'hotels': 'Hôtels',
+                'flights': 'Vols',
+                'experiences': 'Expériences',
+                'cruises-short': 'Croisières',
+                'quote-whatsapp': 'Devis par WhatsApp',
+                'available': '✓ Disponible',
+                'quote-with-us': 'Devis avec nous',
+                
+                // Botones y acciones
+                'search-experiences': 'Rechercher des expériences',
+                'whatsapp-search-info': 'Votre recherche sera envoyée directement par WhatsApp à nos experts',
+                'more-info': 'Plus d\'informations',
+                'schedule-experience': 'Planifiez votre expérience',
+                'explore-destinations': 'Explorer les destinations',
+                'create-memories': 'Créer mes souvenirs',
+                'speak-expert': 'Parler à un expert',
+                'call-now': 'Appeler maintenant',
+                'whatsapp': 'WhatsApp',
+                'quote-cruises': 'Devis croisières par WhatsApp',
+                
+                // Horarios
+                'schedule': 'Heures d\'ouverture : Lundi à Vendredi 9h00 - 18h00',
+                
+                // Textos descriptivos
+                'nostalgia-text': 'Ressentez-vous de la nostalgie pour les aventures ? Cette excitation d\'explorer de nouveaux endroits vous manque ? Il est temps de vous reconnecter avec le monde et avec vous-même.',
+                'reconnect-text': 'Que vous souhaitiez revivre des destinations que vous aimez ou découvrir des endroits dont vous n\'avez que rêvé, chaque voyage est une opportunité de créer de nouvelles histoires.',
+                'places-text': '...et d\'autres qui attendent encore de faire partie des vôtres.',
+                'experience-text': 'Chaque voyage est unique, comme vous. Nos gestionnaires spécialisés concevront une expérience entièrement personnalisée selon vos goûts, votre budget et vos rêves.',
+                
+                // Lema final
+                'magic-everywhere': 'Le "M" est partout&#x3C;br>Dans la mer, dans la magie, dans les moments…&#x3C;br>&#x3C;span class="text-pastel-yellow gradient-text">Le "M" est avec vous.&#x3C;/span>',
+                'location': 'Mexique Magique - Agence de Voyage&#x3C;br>Mérida, Yucatán, Mexique'
+            }
+        };
+        
+        // Función para traducir la página
+        function translatePage(language) {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[language] &#x26;&#x26; translations[language][key]) {
+                    element.innerHTML = translations[language][key];
+                }
+            });
+            
+            // Actualizar el texto del botón de idioma
+            const languageBtn = document.getElementById('language-text');
+            if (languageBtn) {
+                languageBtn.textContent = translations[language]['language-btn'];
+            }
+        }
+        
+        // Función para cambiar idioma
+        function toggleLanguage() {
+            // Ciclo: español -> inglés -> francés -> español
+            switch (currentLanguage) {
+                case 'es':
+                    currentLanguage = 'en';
+                    showLanguageNotification('Changing to English... / Cambiando a inglés...');
+                    break;
+                case 'en':
+                    currentLanguage = 'fr';
+                    showLanguageNotification('Changing to French... / Cambiando a francés...');
+                    break;
+                case 'fr':
+                    currentLanguage = 'es';
+                    showLanguageNotification('Cambiando a español... / Changing to Spanish...');
+                    break;
+            }
+            
+            // Aplicar traducción
+            translatePage(currentLanguage);
+        }
+
+        function showLanguageNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-white text-gray-800 px-6 py-3 rounded-full shadow-lg z-50 transition-all duration-300';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translate(-50%, -100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Funcionalidad para cotizar servicios específicos
+        function handleServiceQuote(servicio) {
+            // Construir mensaje para WhatsApp
+            let mensaje = `🎯 *SOLICITUD DE COTIZACIÓN - MÉXICO MÁGICO*\n\n`;
+            mensaje += `Hola! Me interesa obtener información y cotización para:\n\n`;
+            mensaje += `🔹 *SERVICIO:* ${servicio}\n\n`;
+            mensaje += `📞 Por favor proporciónenme más información sobre opciones disponibles, precios y fechas.\n\n`;
+            mensaje += `¡Gracias por su atención!`;
+
+            // Número de WhatsApp de la agencia
+            const numeroWhatsApp = '5299993254071';
+            
+            // Codificar el mensaje para URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Crear URL de WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+            
+            // Abrir WhatsApp
+            window.open(urlWhatsApp, '_blank');
+        }
+
+        // Funcionalidad del buscador de experiencias
+        function handleSearchExperiences() {
+            // Obtener valores de los selects
+            const destino = document.querySelector('select').value;
+            const tipoExperiencia = document.querySelectorAll('select')[1].value;
+            const duracion = document.querySelectorAll('select')[2].value;
+            const presupuesto = document.querySelectorAll('select')[3].value;
+
+            // Validar que se haya seleccionado al menos el destino
+            if (destino === 'Selecciona un destino') {
+                alert('Por favor selecciona al menos un destino para continuar');
+                return;
+            }
+
+            // Construir mensaje para WhatsApp
+            let mensaje = `🎯 *SOLICITUD DE COTIZACIÓN - MÉXICO MÁGICO*\n\n`;
+            mensaje += `Hola! Me interesa obtener información y cotización para el siguiente viaje:\n\n`;
+            
+            mensaje += `📍 *DESTINO:*\n${destino}\n\n`;
+            
+            if (tipoExperiencia !== 'Tipo de viaje') {
+                mensaje += `🎒 *TIPO DE EXPERIENCIA:*\n${tipoExperiencia}\n\n`;
+            }
+            
+            if (duracion !== 'Días de viaje') {
+                mensaje += `📅 *DURACIÓN:*\n${duracion}\n\n`;
+            }
+            
+            if (presupuesto !== 'Rango de precio') {
+                mensaje += `💰 *PRESUPUESTO POR PERSONA:*\n${presupuesto}\n\n`;
+            }
+
+            mensaje += `📞 Por favor proporciónenme más información y opciones disponibles.\n\n`;
+            mensaje += `¡Gracias por su atención!`;
+
+            // Número de WhatsApp de la agencia
+            const numeroWhatsApp = '5299993254071'; // Formato: código país + número sin espacios ni signos
+            
+            // Codificar el mensaje para URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Crear URL de WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+            
+            // Abrir WhatsApp
+            window.open(urlWhatsApp, '_blank');
+        }
+
+        // Event listener para el botón de idioma
+        document.addEventListener('DOMContentLoaded', () => {
+            const languageToggle = document.getElementById('language-toggle');
+            if (languageToggle) {
+                languageToggle.addEventListener('click', toggleLanguage);
+            }
+
+            // Event listener para el botón de búsqueda
+            const searchButton = document.getElementById('search-button');
+            if (searchButton) {
+                searchButton.addEventListener('click', handleSearchExperiences);
+            }
+
+            // Event listeners para los botones de cotización
+            const hotelQuoteBtn = document.getElementById('hotel-quote-btn');
+            const flightQuoteBtn = document.getElementById('flight-quote-btn');
+            const experienceQuoteBtn = document.getElementById('experience-quote-btn');
+            const cruiseQuoteBtn = document.getElementById('cruise-quote-btn');
+
+            if (hotelQuoteBtn) {
+                hotelQuoteBtn.addEventListener('click', () => handleServiceQuote('Hoteles'));
+            }
+            if (flightQuoteBtn) {
+                flightQuoteBtn.addEventListener('click', () => handleServiceQuote('Vuelos'));
+            }
+            if (experienceQuoteBtn) {
+                experienceQuoteBtn.addEventListener('click', () => handleServiceQuote('Experiencias'));
+            }
+            if (cruiseQuoteBtn) {
+                cruiseQuoteBtn.addEventListener('click', () => handleServiceQuote('Cruceros'));
+            }
+        });
+
+        // Exponer la función globalmente
+        window.startJourney = startJourney;
+
+        // Auto-iniciar después de un tiempo si no se hace clic
+        setTimeout(() => {
+            if (!document.getElementById('intro-screen').classList.contains('hidden')) {
+                startJourney();
+            }
+        }, 15000);
+    &#x3C;/script>
+&#x3C;/body>
+&#x3C;/html>
+</code></pre>
